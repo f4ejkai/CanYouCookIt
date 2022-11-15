@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./homepage/HomePage.jsx";
 import RecipesPage from "./recipes/RecipesPage.jsx";
 import MyRecipesPage from "./myrecipes/MyRecipesPage.jsx";
+import InventoryPage from "./ingredients/InventoryPage.jsx";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" exact element={<HomePage />} />
         <Route path="/recipes" exact element={<RecipesPage />} />
         <Route path="/myrecipes" exact element={<MyRecipesPage />} />
+        <Route path="/inventory" exact element={<InventoryPage />} />
       </Routes>
     </BrowserRouter>
   );

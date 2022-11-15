@@ -158,3 +158,10 @@ export default router;
 //         headers: {
 //             "Content-Type": "application/json",
 //         },
+router.get("/api/ingredients", async function (req, res) {
+  const searchText = req.query.query;
+  const retrievedIngredients = await mongo.getIngredients(searchText);
+  let possibleIngredients = [];
+  retrievedIngredients.forEach((elt) => possibleIngredients.push(elt["name"]));
+  res.status(200).json({ possibleIngredients: possibleIngredients });
+});
