@@ -62,7 +62,6 @@ export default function AddIngredient() {
         placeholder="Enter a food"
       />
       <Options options={options} />
-      {options}
     </div>
   );
 }
