@@ -6,7 +6,7 @@ import dummy_recipes from "./dummy_recipes.js";
 import dummy_detail from "./dummy_details.js";
 
 const router = express.Router();
-
+router.use(express.json());
 const RECIPES_LIMIT = 5;
 
 /* ------Katerina----- */
@@ -91,8 +91,6 @@ router.get("/api/recipe/:id", async function (req, res) {
 });
 /* ------Katerina end----- */
 
-export default router;
-
 //@Anshul - pass me ingredients like so:
 // bodyToSend = {
 //     "ingredients": ["apples", "flour", "sugar"]
@@ -108,6 +106,31 @@ router.get("/api/ingredients", async function (req, res) {
   const searchText = req.query.query;
   const retrievedIngredients = await mongo.getIngredients(searchText);
   let possibleIngredients = [];
+  console.log(retrievedIngredients);
   retrievedIngredients.forEach((elt) => possibleIngredients.push(elt["name"]));
-  res.status(200).json({ possibleIngredients: possibleIngredients });
+  // res.status(200).json({ possibleIngredients: possibleIngredients });
+  res.status(200).json(retrievedIngredients);
 });
+// works
+router.get("/api/myinventory/:id", async function (req, res) {
+  const userId = req.params.id;
+  const retrievedInventory = await mongo.getInventory(userId);
+  res.status(200).json(retrievedInventory);
+});
+// works
+router.post("/api/myinventory/:id", async (req, res) => {
+  const userId = req.params.id;
+  const itemId = req.body.id;
+  // const itemName = req.body.name;
+  const status = await mongo.addToInventory(userId, itemId);
+
+  res.json({ requestBody: status });
+});
+// works
+router.delete("/api/myinventory/:userId/:itemId", async (req, res) => {
+  const userId = req.params.userId;
+  const itemId = req.params.itemId;
+  const status = await mongo.deleteItem(userId, itemId);
+  res.status(200).json(status);
+});
+export default router;

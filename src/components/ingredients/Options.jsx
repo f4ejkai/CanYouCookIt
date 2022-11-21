@@ -7,7 +7,7 @@ export default function Options(props) {
   let ingredientsList = props.options;
   let id = 0;
   const options = ingredientsList.map((ingredient) => {
-    let option = <Option name={ingredient} key={id} />;
+    let option = <Option name={ingredient.name} id={ingredient.id} key={id} />;
     // ideal format
     // let option = <Option id={ingredient.id} name={ingredient.name} key={id} />;
     id = id + 1;

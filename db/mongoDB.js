@@ -5,7 +5,7 @@ function MongoModule() {
   const url = process.env.MONGODB_URI || "mongodb://0.0.0.0:27017/";
   const DB_NAME = "CanYouCookIt";
   const COLLECTION_RECIPES = "recipes";
-  const USER_INVENTORY = "Inventory";
+  const USER_INVENTORY = "InventoryCollection";
   const INGREDIENTS_COLLECTION = "IngredientsCollection";
   const MONGO_DEFAULTS = {
     useNewUrlParser: true,
@@ -55,7 +55,9 @@ function MongoModule() {
   db.getRecipe = getRecipe;
   db.createRecipe = createRecipe;
   /* ------Katerina end----- */
+
   /* ------Anshul start----- */
+  //  works
   async function getInventory(userId) {
     let client;
 
@@ -66,15 +68,47 @@ function MongoModule() {
 
       const mongo = client.db(DB_NAME);
       const inventoryCollection = mongo.collection(USER_INVENTORY);
+      const ingredientsCollection = mongo.collection(INGREDIENTS_COLLECTION);
+      let query = { userId: userId };
+      const inventory = await inventoryCollection
+        .find(query)
+        .project({ ingredients: 1, _id: 0 })
+        .toArray();
+      // findOne has been marked for deprecation with issues
+      // console.log(inventory);
+      let myinventory = inventory[0].ingredients;
+      let ingredientsId = [];
+      myinventory.forEach((element) => {
+        // console.log(element.itemId);
+        ingredientsId.push(element.id);
+      });
+      // console.log(ingredientsId);
+      query = { id: { $in: ingredientsId } };
+      let myIngredientsInfo = await ingredientsCollection
+        .find(query)
+        .project({ _id: 0 })
+        .toArray();
+      console.log(myinventory);
+      console.log(myIngredientsInfo);
 
-      const query = { id: userId };
-      const inventory = await inventoryCollection.findOne(query);
-      return inventory;
+      myIngredientsInfo = myinventory.map((myinventoryItem) => {
+        const matched = myIngredientsInfo.find(
+          (myIngredientInfo) => myIngredientInfo.id === myinventoryItem.id
+        );
+        if (matched) {
+          // delete myinventoryItem.id;
+          // delete matched.id;
+          return { ...myinventoryItem, ...matched };
+        }
+      });
+      console.log(myIngredientsInfo);
+      return myIngredientsInfo;
     } finally {
       await client.close();
     }
   }
-  async function addToInventory(userId, newItem) {
+  // works
+  async function addToInventory(userId, itemId) {
     console.log("INSIDE updateInventory");
     let client;
 
@@ -87,16 +121,16 @@ function MongoModule() {
       const inventoryCollection = mongo.collection(USER_INVENTORY);
 
       const query = {
-        _id: ObjectId(userId),
+        userId: userId,
       };
       // add the new item here
       const append = {
-        $set: {
-          isCompleted: true,
+        $push: {
+          ingredients: { id: itemId, quantity: 10, unit: "slice" },
         },
       };
 
-      const result = await inventoryCollection.insertOne(query, append);
+      const result = await inventoryCollection.updateOne(query, append);
 
       console.log(result);
 
@@ -105,7 +139,7 @@ function MongoModule() {
       await client.close();
     }
   }
-
+  // works
   async function deleteItem(userId, itemId) {
     let client;
 
@@ -116,24 +150,27 @@ function MongoModule() {
 
       const mongo = client.db(DB_NAME);
       const inventoryCollection = mongo.collection(USER_INVENTORY);
-
+      const filter = {
+        userId: userId,
+      };
       // DO THE DELETE USING WHERE CLUASE
-      const resultItem = await inventoryCollection.deleteOne({
-        _id: ObjectId(userId),
-      });
+      const update = {
+        $pull: { ingredients: { id: itemId } },
+      };
 
-      if (resultItem.deletedCount === 1) {
+      const result = await inventoryCollection.updateOne(filter, update);
+      if (result.matchedCount === 1) {
         console.log(
-          "Successfully deleted one document in Inventory Collection."
+          "Successfully deleted one Ingredient from the ingredients array"
         );
       } else {
         console.log(
           "No documents matched the query in Inventory Collection. \
-                Deleted 0 documents."
+                Deleted 0 ingredients from the ingredients array"
         );
       }
 
-      return resultItem;
+      return result;
     } finally {
       await client.close();
     }
@@ -189,7 +226,7 @@ function MongoModule() {
       const query = { name: { $regex: "^" + searchText } };
       const possibleIngredients = await ingredientsCollection
         .find(query)
-        .project({ name: 1, _id: 0 })
+        .project({ name: 1, _id: 0, id: 1 })
         .toArray();
       // console.log(possibleIngredients);
 

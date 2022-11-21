@@ -63,3 +63,13 @@ div a {
 .recipe-card {
   width: "15rem";
 }
+.ingredient-img {
+  border-radius: 25px;
+  width: 10rem;
+  font-size: 0;
+  max-height: 8rem;
+  /* height: auto; */
+}
+.img-w {
+  width: 12rem;
+}
