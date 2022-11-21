@@ -47,7 +47,8 @@ export default function AddIngredient() {
             query: text,
           })
       );
-      const items = await res.json();
+      const data = await res.json();
+      items = data;
     }
     // console.log(items);
     return items;
