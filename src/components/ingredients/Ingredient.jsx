@@ -21,21 +21,23 @@ export default function Ingredient(props) {
           <input
             className="form-check-input"
             type="checkbox"
-            value=""
             id="flexCheckDefault"
+            name={props.name}
+            onChange={props.handleOnChange}
+            checked={props.checkedData[props.name]}
           />
         </div>
       </td>
       <td>
         <div className="py-5 px-3">
-          <button
+          <span
             className="btn btn-danger"
             onClick={() => {
-              props.handleClickInner(userId, props.id);
+              props.handleClickInner(userId, props.id, props.name);
             }}
           >
             X
-          </button>
+          </span>
         </div>
       </td>
     </tr>

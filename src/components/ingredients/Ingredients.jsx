@@ -15,6 +15,8 @@ export default function Ingredients(props) {
         key={ingredientInfo.id}
         id={ingredientInfo.id}
         handleClickInner={props.handleClick}
+        handleOnChange={props.handleOnChange}
+        checkedData={props.checkedData}
       />
     );
     // ideal format
