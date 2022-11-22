@@ -1,0 +1,34 @@
+// ingredients collection
+{
+    "id": "1212",
+    "name": "banana",
+    "possibleUnits": ["piece", "slice", "fruit", "g", "oz", "cup", "serving"],
+    "image": "pineapple.jpg"
+}
+// user inventory
+{
+    "user_id":"__id"
+    "ingredients":[
+        {
+            "item":"id",
+            "quantity": 2,
+            "unit": "unit_used"
+        },
+        {
+            "item":"id",
+            "quantity": 2,
+            "unit": "unit_used"
+        
+        },
+    ]
+}
+// extention could include costs and nutrients of ingredients
+// extention will include conversion between units functionality
+
+// The return will be a list of objects as follows 
+{
+    "user_id":"__id"
+    "ingredients":["item1","item2"]
+}
+// search obj for ingredients
+// {'name': { $regex: '^fu'}}
