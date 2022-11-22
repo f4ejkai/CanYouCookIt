@@ -2,8 +2,10 @@
 import React from "react";
 import Ingredient from "./Ingredient";
 
+import PropTypes from "prop-types";
+
 export default function Ingredients(props) {
-  //   console.log(props);
+  console.log(props);
 
   let ingredientsList = props.ingredients;
 
@@ -26,3 +28,18 @@ export default function Ingredients(props) {
   });
   return ingredients;
 }
+
+Ingredients.PropTypes = {
+  handleClick: PropTypes.func,
+  handleOnChange: PropTypes.func,
+  checkedData: PropTypes.objectOf(PropTypes.bool),
+  ingredients: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      quantity: PropTypes.number.isRequired,
+      unit: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+    })
+  ),
+};

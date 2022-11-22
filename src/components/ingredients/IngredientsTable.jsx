@@ -87,9 +87,9 @@ export default function IngredientsTable() {
   };
   return (
     <form>
-      <div className="btn btn-primary" onClick={() => logger()}>
+      {/* <div className="btn btn-primary" onClick={() => logger()}>
         check selected items
-      </div>
+      </div> */}
       <table className="table table-striped">
         <thead>
           <tr>

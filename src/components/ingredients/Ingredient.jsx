@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function Ingredient(props) {
   const userId = 1;
@@ -43,3 +44,12 @@ export default function Ingredient(props) {
     </tr>
   );
 }
+Ingredient.PropTypes = {
+  handleClick: PropTypes.func,
+  handleOnChangeInner: PropTypes.func,
+  checkedData: PropTypes.objectOf(PropTypes.bool),
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
+  url: PropTypes.string.isRequired,
+};
