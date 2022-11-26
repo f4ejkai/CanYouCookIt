@@ -1,0 +1,46 @@
+h1 {
+  font-family: "Raleway";
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+p {
+  font-size: larger;
+  text-align: justify;
+  font-family: "Raleway";
+  white-space: pre-line;
+}
+
+div a {
+  text-decoration: none;
+}
+
+.btn-custom {
+  color: black;
+  text-align: center;
+  font-size: 1.3rem;
+  border-radius: 5px;
+  border: 1px solid hsl(198, 1%, 29%);
+}
+
+.btn-custom:hover {
+  color: black;
+  border-radius: 5px;
+  border: 1px solid hsl(198, 1%, 29%);
+}
+
+.btn-green {
+  background-color: white;
+}
+
+.btn-green:hover {
+  background-color: #769505;
+}
+
+.btn-red {
+  background-color: white;
+}
+
+.btn-red:hover {
+  background-color: #c02a01;
+}

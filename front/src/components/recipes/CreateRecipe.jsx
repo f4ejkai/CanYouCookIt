@@ -1,9 +1,8 @@
-//alternative version for adding inputFields for ingredients => not finished
-
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
+import "./CreateRecipe.css";
 
 CreateRecipe.propTypes = {
   recipes: PropTypes.array,
@@ -41,7 +40,7 @@ function CreateRecipe(props) {
     newRecipe.instructions = newRecipe.instructions
       ? newRecipe.instructions
       : "No instructions provided.";
-      
+
     console.log("addNewToMyRecipes id", newRecipe.id);
     try {
       const response = await fetch("/api/myrecipes/new", {

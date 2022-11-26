@@ -1,0 +1,11 @@
+.title-details {
+  font-size: 1.75rem;
+  font-weight: 500;
+  font-family: system-ui;
+}
+
+.ingredient-details {
+  font-size: 1.1rem;
+  display: list-item;
+  margin-left: 1.5rem;
+}

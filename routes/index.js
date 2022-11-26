@@ -4,10 +4,10 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import fs from "fs";
 
-import { removeHtmlTags } from "../src/components/utils.js";
+import { removeHtmlTags } from "../front/src/utils/utils.js";
 import mongo from "../db/mongoDB.js";
 //TODO remove import of dummy recipes
-import dummy_recipes from "./dummy_recipes.js";
+// import dummy_recipes from "./dummy_recipes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -29,11 +29,10 @@ router.use("*", async function (req, res, next) {
 
 /* POST recipes by ingredients */
 router.post("/api/recipes/search", async function (req, res) {
-  //   console.log(req);
-  //const ingredients = req.body.ingredients;
-  const ingredients = ["apples", "flour", "sugar"];
+  const ingredients = req.body.ingredients;
+  // const ingredients = ["apples", "flour", "sugar"];
 
-  // console.log(ingredients);
+  console.log("ingredients", ingredients);
 
   if (ingredients) {
     const baseUrl = "https://api.spoonacular.com/recipes/findByIngredients";
@@ -44,10 +43,10 @@ router.post("/api/recipes/search", async function (req, res) {
 
     try {
       // TODO: uncomment real request & remove dummy_recipes
-      // const recipiesResponse = await fetch(url, options);
-      // const recipes = await recipiesResponse.json();
-
-      const recipes = dummy_recipes;
+      const recipiesResponse = await fetch(url, options);
+      const recipes = await recipiesResponse.json();
+      console.log("got recipes", recipes);
+      // const recipes = dummy_recipes;
 
       if (recipes) {
         res.status(200).json(recipes);
@@ -197,7 +196,6 @@ router.post("/api/myrecipes/new", async function (req, res) {
   const newRecipe = req.body.newRecipe;
   const userId = req.user.userId;
   newRecipe.userId = userId;
-  // console.log("got newRecipe", newRecipe);
 
   if (newRecipe) {
     const newRecipeResponse = await mongo.createRecipe(newRecipe);
@@ -258,16 +256,36 @@ router.post("/api/myrecipes/update", async function (req, res) {
 
 /* ------Katerina end----- */
 
+/* ------Anshul start----- */
+router.get("/api/ingredients", async function (req, res) {
+  const searchText = req.query.query;
+  const retrievedIngredients = await mongo.getIngredients(searchText);
+  let possibleIngredients = [];
+  // console.log(retrievedIngredients);
+  retrievedIngredients.forEach((elt) => possibleIngredients.push(elt["name"]));
+  res.status(200).json(retrievedIngredients);
+});
+
+router.get("/api/myinventory/:id", async function (req, res) {
+  const userId = req.params.id;
+  const retrievedInventory = await mongo.getInventory(userId);
+  res.status(200).json(retrievedInventory);
+});
+
+router.post("/api/myinventory/:id", async (req, res) => {
+  const userId = req.params.id;
+  const itemId = req.body.id;
+  const status = await mongo.addToInventory(userId, itemId);
+
+  res.json({ requestBody: status });
+});
+
+router.delete("/api/myinventory/:userId/:itemId", async (req, res) => {
+  const userId = req.params.userId;
+  const itemId = req.params.itemId;
+  const status = await mongo.deleteItem(userId, itemId);
+  res.status(200).json(status);
+});
+/* ------Anshul end----- */
+
 export default router;
-
-// @Anshul - pass me ingredients like so:
-// bodyToSend = {
-//     "ingredients": ["apples", "flour", "sugar"]
-// }
-
-// await fetch(`/api/recipes`, {
-//         method: "post",
-//         body: bodyToSend,
-//         headers: {
-//             "Content-Type": "application/json",
-//         },

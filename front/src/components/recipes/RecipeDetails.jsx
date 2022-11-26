@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getUnique } from "../utils.js";
+import { getUnique } from "../../utils/utils.js";
 import RecipeDetailsElement from "./RecipeDetailsElement.jsx";
 import RecipeDetailsIngredient from "./RecipeDetailsIngredient.jsx";
+import "./RecipeDetails.css";
 
 RecipeDetails.propTypes = {
   recipe: PropTypes.object,

@@ -4,7 +4,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { removeHtmlTags } from "../utils.js";
+import { removeHtmlTags } from "../../utils/utils.js";
+import "./RecipeDetailsElement.css";
 
 RecipeDetailsElement.propTypes = {
   idx: PropTypes.number,
@@ -67,7 +68,6 @@ function RecipeDetailsElement(props) {
   }
 
   async function updateRecipe(updatedRecipe) {
-
     console.log("will update this recipe id", updatedRecipe.id);
     try {
       const response = await fetch("/api/myrecipes/update", {

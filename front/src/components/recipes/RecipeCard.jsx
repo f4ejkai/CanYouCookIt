@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import "./RecipeCard.css";
 
 RecipeCard.propTypes = {
   recipe: PropTypes.object,
@@ -38,9 +39,9 @@ function RecipeCard(props) {
         <img
           src={props.recipe.image}
           alt={props.recipe.title}
-          className="recipe-img mb-4"
+          className="RecipeCardImage mb-4"
         />
-        <h5 className="card-title recipe-title">
+        <h5 className="card-title RecipeCardTitle">
           {props.recipe.title.length > 30
             ? props.recipe.title.substring(0, 30) + "..."
             : props.recipe.title}

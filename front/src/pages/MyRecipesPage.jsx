@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
-import Footer from "../Footer.jsx";
-import Header from "../Header.jsx";
-import Recipes from "./Recipes.jsx";
+import BasePage from "./BasePage.jsx";
 
-function SearchRecipesPage() {
+import Recipes from "../components/recipes/Recipes.jsx";
+import CreateRecipe from "../components/recipes/CreateRecipe.jsx";
 
+function MyRecipesPage() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/api/recipes/search", {
-          method: "POST",
+        const response = await fetch("/api/myrecipes", {
+          method: "GET",
           headers: { "Content-Type": "application/json" },
         });
         if (response.ok) {
           const recipesJson = await response.json();
-          recipesJson.map((r) => (r.id = String(r.id)));
           setRecipes(recipesJson);
-
           console.log("on Load", recipesJson);
         } else {
           console.error("Error in fetch");
@@ -30,17 +28,21 @@ function SearchRecipesPage() {
     fetchData();
   }, []);
 
-
   return (
-    <div>
-      <Header />
+    <BasePage>
       <div className="container">
-        <h1>Search results:</h1>
-        <Recipes recipes={recipes} setRecipes={setRecipes}/>
+        <div className="d-flex align-content-start">
+          <h1>My Recipes</h1>
+          <CreateRecipe recipes={recipes} setRecipes={setRecipes} />
+        </div>
+        <Recipes
+          recipes={recipes}
+          setRecipes={setRecipes}
+          isMyRecipesPage={true}
+        />
       </div>
-      <Footer />
-    </div>
+    </BasePage>
   );
 }
 
-export default SearchRecipesPage;
+export default MyRecipesPage;

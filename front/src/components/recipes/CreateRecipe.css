@@ -1,0 +1,18 @@
+.btn-create {
+  margin-top: 3rem;
+  height: 3rem;
+  color: black;
+  text-align: center;
+  font-size: 1.3rem;
+  border-radius: 5px;
+  border: 1px solid hsl(198, 1%, 29%);
+}
+
+.btn-create:hover {
+  color: black;
+  text-align: center;
+  font-size: 1.3rem;
+  border-radius: 5px;
+  border: 1px solid hsl(198, 1%, 29%);
+  background-color: #769505;
+}

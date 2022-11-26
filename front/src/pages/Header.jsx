@@ -1,17 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Header.css";
 
 function Header() {
   return (
     <header>
-      <nav className="navbar navbar-expand-lg custom-navbar">
+      <nav className="navbar navbar-expand-lg Header">
         <img
           src="/images/logo.png"
           className="ps-4 pb-1 ms-3"
           alt="can-you-cook-it-logo"
           height="45"
         />
-         <Link className="navbar-brand ps-3 mt-2" to="/">
+        <Link className="navbar-brand ps-3 mt-2" to="/">
           CanYouCookIt?
         </Link>
         <button
@@ -33,8 +34,8 @@ function Header() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-item nav-link" to="/ingredients">
-                Ingredients
+              <Link className="nav-item nav-link" to="/inventory">
+                Inventory
               </Link>
             </li>
             <li className="nav-item">

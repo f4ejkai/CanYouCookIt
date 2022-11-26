@@ -1,70 +1,30 @@
 {
-  "name": "can-you-cook-it",
+  "name": "canyoucookit",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "author": "Katerina Bosko, Anshul Mathew",
   "description": "CanYouCookIt app to match recipes with given ingredients",
-  "main": "app.js",
   "type": "module",
-  "engines": {
-    "node": "18.x"
+  "scripts": {
+    "start": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www.js",
+    "postinstall": "cd front && npm install && npm run build"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "express": "^4.18.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
     "express-fileupload": "^1.4.0",
-    "mongodb": "^4.11.0",
-    "morgan": "^1.10.0",
-    "node-fetch": "^3.3.0",
-    "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.6.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.3",
-    "react-scripts": "5.0.1",
-    "uuid": "^9.0.0",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "node ./bin/www.js",
-    "start-react": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint .",
-    "fix-lint": "eslint --fix .",
-    "nodemon": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www.js",
-    "initializeDB": "./db/initializeDB/initializeDB.sh"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:react-hooks/recommended"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "mongodb": "^4.12.1",
+    "morgan": "~1.9.1",
+    "node-fetch": "^3.3.0"
   },
   "devDependencies": {
-    "body-parser-zlib": "^1.0.2",
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-react": "^7.31.10",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-react": "^7.31.11",
     "nodemon": "^2.0.20",
-    "prettier": "^2.7.1"
-  },
-  "proxy": "http://localhost:3001"
+    "prettier": "^2.8.0"
+  }
 }

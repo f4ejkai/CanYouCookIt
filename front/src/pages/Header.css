@@ -1,0 +1,20 @@
+.Header {
+  background-color: #eed61d;
+}
+
+.Header .navbar-brand {
+  color: black;
+  font-family: "Architects Daughter";
+  font-size: 1.7rem;
+}
+
+.Header .nav-item {
+  font-family: "Josefin Sans";
+  font-size: 1.3rem;
+  color: black;
+}
+
+.Header .nav-item:hover {
+  text-decoration: underline;
+  color: black;
+}
