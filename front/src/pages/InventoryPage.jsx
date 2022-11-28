@@ -152,23 +152,25 @@ export default function InventoryPage(props) {
         <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-6">
-              <input
-                className="form-control"
-                list="possible-ingredients"
-                name="item"
-                id="item"
-                onChange={handleChange}
-                value={formData.item}
-                required
-                placeholder="Enter ingredient"
-              />
-              <OptionsList
-                setIngredient={setIngredient}
-                setFormData={setFormData}
-                setOptions={setOptions}
-                setBtnEnabled={setBtnEnabled}
-                options={options}
-              />
+              <form autocomplete="off">
+                <input
+                  className="form-control"
+                  list="possible-ingredients"
+                  name="item"
+                  id="item"
+                  onChange={handleChange}
+                  value={formData.item}
+                  required
+                  placeholder="Enter ingredient"
+                />
+                <OptionsList
+                  setIngredient={setIngredient}
+                  setFormData={setFormData}
+                  setOptions={setOptions}
+                  setBtnEnabled={setBtnEnabled}
+                  options={options}
+                />
+              </form>
             </div>
             <div className="col-2">
               <button
